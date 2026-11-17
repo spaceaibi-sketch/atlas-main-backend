@@ -1,0 +1,2477 @@
+{
+  "metadata": {
+    "database": "/opt/atlas/data/edgar.sqlite3",
+    "generated_utc": "2026-10-24T11:29:59.275553+00:00",
+    "sqlite_version": "3.37.2",
+    "journal_mode": "wal",
+    "user_version": 0,
+    "schema_version": 182,
+    "database_size_bytes": 653991936,
+    "counts_included": true
+  },
+  "object_totals": {
+    "table": 10,
+    "index": 43,
+    "trigger": 37
+  },
+  "tables": [
+    {
+      "name": "companies",
+      "internal": false,
+      "create_sql": "CREATE TABLE companies (\n id INTEGER PRIMARY KEY AUTOINCREMENT,\n cik TEXT NOT NULL UNIQUE,\n name TEXT NOT NULL,\n ticker TEXT,\n exchange TEXT,\n created_at TEXT NOT NULL,\n updated_at TEXT NOT NULL\n, acumm_impact REAL NOT NULL DEFAULT 0, acumm_monetary REAL NOT NULL DEFAULT 0, accum_confdent REAL NOT NULL DEFAULT 0, description TEXT, description_type TEXT, sic TEXT)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1,
+          "hidden": 0
+        },
+        {
+          "cid": 1,
+          "name": "cik",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 2,
+          "name": "name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 3,
+          "name": "ticker",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 4,
+          "name": "exchange",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 5,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 6,
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 7,
+          "name": "acumm_impact",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 8,
+          "name": "acumm_monetary",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 9,
+          "name": "accum_confdent",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 10,
+          "name": "description",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 11,
+          "name": "description_type",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 12,
+          "name": "sic",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "sqlite_autoindex_companies_1",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0
+        }
+      ],
+      "row_count": 8196,
+      "count_error": null
+    },
+    {
+      "name": "forms",
+      "internal": false,
+      "create_sql": "CREATE TABLE forms (\n id INTEGER PRIMARY KEY AUTOINCREMENT,\n company_id INTEGER NOT NULL REFERENCES companies(id),\n form_type TEXT NOT NULL CHECK(form_type IN ('8-K','10-K','10-Q')),\n form_name TEXT NOT NULL,\n filed_date TEXT NOT NULL CHECK(filed_date GLOB '????-??-??T??:??:??Z'),\n index_url TEXT NOT NULL UNIQUE,\n primary_url TEXT,\n file_guid TEXT UNIQUE,\n file_name TEXT,\n status TEXT NOT NULL DEFAULT 'created' CHECK(status IN ('created','extracted','parsed','error')),\n error TEXT,\n created_at TEXT NOT NULL,\n updated_at TEXT NOT NULL\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1,
+          "hidden": 0
+        },
+        {
+          "cid": 1,
+          "name": "company_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 2,
+          "name": "form_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 3,
+          "name": "form_name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 4,
+          "name": "filed_date",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 5,
+          "name": "index_url",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 6,
+          "name": "primary_url",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 7,
+          "name": "file_guid",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 8,
+          "name": "file_name",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 9,
+          "name": "status",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'created'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 10,
+          "name": "error",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 11,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 12,
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "id": 0,
+          "seq": 0,
+          "table": "companies",
+          "from": "company_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "NO ACTION",
+          "match": "NONE"
+        }
+      ],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "idx_atlas_mob_forms_c",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 1,
+          "name": "idx_forms_type_time",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 2,
+          "name": "idx_forms_company_time",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 3,
+          "name": "sqlite_autoindex_forms_2",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0
+        },
+        {
+          "seq": 4,
+          "name": "sqlite_autoindex_forms_1",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0
+        }
+      ],
+      "row_count": 1715,
+      "count_error": null
+    },
+    {
+      "name": "items",
+      "internal": false,
+      "create_sql": "CREATE TABLE items (\n id INTEGER PRIMARY KEY AUTOINCREMENT,\n form_id INTEGER NOT NULL REFERENCES forms(id) ON DELETE CASCADE,\n file_guid TEXT,\n file_name TEXT,\n item_type TEXT NOT NULL,\n item_occurrence INTEGER NOT NULL DEFAULT 1 CHECK(item_occurrence > 0),\n item_name TEXT NOT NULL,\n item_text TEXT NOT NULL DEFAULT '',\n status TEXT NOT NULL DEFAULT 'created' CHECK(status IN ('created','processed','rejected','error','analysed')),\n ai_impact INTEGER NOT NULL DEFAULT 0 CHECK(ai_impact BETWEEN -10 AND 10),\n ai_confidence REAL NOT NULL DEFAULT 0 CHECK(ai_confidence BETWEEN 0 AND 10),\n ai_reason TEXT NOT NULL DEFAULT 'Not analysed yet.' CHECK(length(trim(ai_reason)) > 0),\n ai_evidence TEXT NOT NULL DEFAULT 'Not stated' CHECK(length(trim(ai_evidence)) > 0),\n ai_monetary_effect REAL NOT NULL DEFAULT 0,\n ai_monetary_effect_reason TEXT NOT NULL DEFAULT 'Not analysed yet. 0 USD is a placeholder, not a measured effect.' CHECK(length(trim(ai_monetary_effect_reason)) > 0),\n price_change_1w_pct REAL NOT NULL DEFAULT 0,\n price_change_reason TEXT NOT NULL DEFAULT 'Not analysed yet. 0% is a placeholder, not a market forecast.' CHECK(length(trim(price_change_reason)) > 0),\n errors TEXT NOT NULL DEFAULT '',\n created_at TEXT NOT NULL,\n updated_at TEXT NOT NULL,\n UNIQUE(form_id,item_type,item_occurrence)\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1,
+          "hidden": 0
+        },
+        {
+          "cid": 1,
+          "name": "form_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 2,
+          "name": "file_guid",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 3,
+          "name": "file_name",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 4,
+          "name": "item_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 5,
+          "name": "item_occurrence",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": "1",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 6,
+          "name": "item_name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 7,
+          "name": "item_text",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 8,
+          "name": "status",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'created'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 9,
+          "name": "ai_impact",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 10,
+          "name": "ai_confidence",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 11,
+          "name": "ai_reason",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'Not analysed yet.'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 12,
+          "name": "ai_evidence",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'Not stated'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 13,
+          "name": "ai_monetary_effect",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 14,
+          "name": "ai_monetary_effect_reason",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'Not analysed yet. 0 USD is a placeholder, not a measured effect.'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 15,
+          "name": "price_change_1w_pct",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 16,
+          "name": "price_change_reason",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'Not analysed yet. 0% is a placeholder, not a market forecast.'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 17,
+          "name": "errors",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 18,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 19,
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "id": 0,
+          "seq": 0,
+          "table": "forms",
+          "from": "form_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "CASCADE",
+          "match": "NONE"
+        }
+      ],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "idx_atlas_mob_items_scored",
+          "unique": 0,
+          "origin": "c",
+          "partial": 1
+        },
+        {
+          "seq": 1,
+          "name": "idx_atlas_mob_items_f",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 2,
+          "name": "idx_items_form_id",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 3,
+          "name": "sqlite_autoindex_items_1",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0
+        }
+      ],
+      "row_count": 4305,
+      "count_error": null
+    },
+    {
+      "name": "news",
+      "internal": false,
+      "create_sql": "CREATE TABLE \"news\" (\n news_id TEXT PRIMARY KEY,\n title TEXT NOT NULL,\n url TEXT NOT NULL,\n url_key TEXT NOT NULL UNIQUE,\n title_key TEXT NOT NULL,\n story_key TEXT NOT NULL,\n summary TEXT NOT NULL DEFAULT '',\n article_text TEXT NOT NULL DEFAULT '',\n source TEXT NOT NULL,\n region TEXT NOT NULL DEFAULT '',\n category TEXT NOT NULL DEFAULT '',\n published_utc TEXT NOT NULL DEFAULT '',\n companies TEXT NOT NULL DEFAULT '',\n filtration_reason TEXT NOT NULL DEFAULT '',\n status TEXT NOT NULL DEFAULT 'created' CHECK(status IN ('created','skipped','extracted','connected','analysed')),\n errors TEXT NOT NULL DEFAULT '',\n created_at TEXT NOT NULL,updated_at TEXT NOT NULL\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "news_id",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1,
+          "hidden": 0
+        },
+        {
+          "cid": 1,
+          "name": "title",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 2,
+          "name": "url",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 3,
+          "name": "url_key",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 4,
+          "name": "title_key",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 5,
+          "name": "story_key",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 6,
+          "name": "summary",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 7,
+          "name": "article_text",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 8,
+          "name": "source",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 9,
+          "name": "region",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 10,
+          "name": "category",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 11,
+          "name": "published_utc",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 12,
+          "name": "companies",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 13,
+          "name": "filtration_reason",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 14,
+          "name": "status",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'created'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 15,
+          "name": "errors",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 16,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 17,
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "idx_news_status",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 1,
+          "name": "idx_news_story",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 2,
+          "name": "sqlite_autoindex_news_2",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0
+        },
+        {
+          "seq": 3,
+          "name": "sqlite_autoindex_news_1",
+          "unique": 1,
+          "origin": "pk",
+          "partial": 0
+        }
+      ],
+      "row_count": 10012,
+      "count_error": null
+    },
+    {
+      "name": "news_company_relations",
+      "internal": false,
+      "create_sql": "CREATE TABLE news_company_relations (\n relation_id TEXT PRIMARY KEY,\n news_id TEXT NOT NULL REFERENCES news(news_id) ON DELETE CASCADE,\n company_id INTEGER REFERENCES companies(id),\n entity_key TEXT NOT NULL,\n entity_type TEXT NOT NULL CHECK(entity_type IN ('company','government','industry')),\n entity_name TEXT NOT NULL,\n status TEXT NOT NULL DEFAULT 'connected',\n ai_impact INTEGER NOT NULL DEFAULT 0 CHECK(ai_impact BETWEEN -10 AND 10),\n ai_confidence REAL NOT NULL DEFAULT 0 CHECK(ai_confidence BETWEEN 0 AND 10),\n ai_reason TEXT NOT NULL DEFAULT 'Not analysed yet.',\n ai_evidence TEXT NOT NULL DEFAULT 'Not stated',\n ai_monetary_effect REAL NOT NULL DEFAULT 0,\n ai_monetary_effect_reason TEXT NOT NULL DEFAULT 'Not quantified.',\n price_change_1w_pct REAL NOT NULL DEFAULT 0,\n price_change_reason TEXT NOT NULL DEFAULT 'No estimate.',\n errors TEXT NOT NULL DEFAULT '',\n created_at TEXT NOT NULL,updated_at TEXT NOT NULL,\n match_hits INTEGER NOT NULL DEFAULT 0,\n match_evidence TEXT NOT NULL DEFAULT '',\n correlation_reason TEXT NOT NULL DEFAULT '',\n UNIQUE(news_id,entity_key)\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "relation_id",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1,
+          "hidden": 0
+        },
+        {
+          "cid": 1,
+          "name": "news_id",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 2,
+          "name": "company_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 3,
+          "name": "entity_key",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 4,
+          "name": "entity_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 5,
+          "name": "entity_name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 6,
+          "name": "status",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'connected'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 7,
+          "name": "ai_impact",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 8,
+          "name": "ai_confidence",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 9,
+          "name": "ai_reason",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'Not analysed yet.'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 10,
+          "name": "ai_evidence",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'Not stated'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 11,
+          "name": "ai_monetary_effect",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 12,
+          "name": "ai_monetary_effect_reason",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'Not quantified.'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 13,
+          "name": "price_change_1w_pct",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 14,
+          "name": "price_change_reason",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'No estimate.'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 15,
+          "name": "errors",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 16,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 17,
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 18,
+          "name": "match_hits",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 19,
+          "name": "match_evidence",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 20,
+          "name": "correlation_reason",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "id": 0,
+          "seq": 0,
+          "table": "companies",
+          "from": "company_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "NO ACTION",
+          "match": "NONE"
+        },
+        {
+          "id": 1,
+          "seq": 0,
+          "table": "news",
+          "from": "news_id",
+          "to": "news_id",
+          "on_update": "NO ACTION",
+          "on_delete": "CASCADE",
+          "match": "NONE"
+        }
+      ],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "idx_atlas_mob_ncr_scored",
+          "unique": 0,
+          "origin": "c",
+          "partial": 1
+        },
+        {
+          "seq": 1,
+          "name": "idx_atlas_mob_ncr_n",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 2,
+          "name": "idx_atlas_mob_ncr_c",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 3,
+          "name": "idx_news_rel_analysis",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 4,
+          "name": "idx_news_rel_entity",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 5,
+          "name": "idx_news_rel_company",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 6,
+          "name": "sqlite_autoindex_news_company_relations_2",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0
+        },
+        {
+          "seq": 7,
+          "name": "sqlite_autoindex_news_company_relations_1",
+          "unique": 1,
+          "origin": "pk",
+          "partial": 0
+        }
+      ],
+      "row_count": 2011,
+      "count_error": null
+    },
+    {
+      "name": "price_bars",
+      "internal": false,
+      "create_sql": "CREATE TABLE \"price_bars\" (\n  company_id INTEGER NOT NULL REFERENCES companies(id) ON DELETE CASCADE,\n  bar_time_utc TEXT NOT NULL CHECK(bar_time_utc GLOB '????-??-??T??:??:??Z'),\n  open REAL NOT NULL CHECK(open > 0),\n  high REAL NOT NULL CHECK(high > 0),\n  low REAL NOT NULL CHECK(low > 0),\n  close REAL NOT NULL CHECK(close > 0),\n  volume INTEGER NOT NULL CHECK(volume >= 0),\n  trade_count INTEGER CHECK(trade_count >= 0),\n  vwap REAL,\n  source TEXT NOT NULL DEFAULT 'alpaca',\n  feed TEXT NOT NULL CHECK(feed IN ('sip', 'iex', 'yfinance')),\n  ingested_at TEXT NOT NULL,\n  PRIMARY KEY (company_id, bar_time_utc)\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "company_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 1,
+          "hidden": 0
+        },
+        {
+          "cid": 1,
+          "name": "bar_time_utc",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 2,
+          "hidden": 0
+        },
+        {
+          "cid": 2,
+          "name": "open",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 3,
+          "name": "high",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 4,
+          "name": "low",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 5,
+          "name": "close",
+          "type": "REAL",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 6,
+          "name": "volume",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 7,
+          "name": "trade_count",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 8,
+          "name": "vwap",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 9,
+          "name": "source",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'alpaca'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 10,
+          "name": "feed",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 11,
+          "name": "ingested_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "id": 0,
+          "seq": 0,
+          "table": "companies",
+          "from": "company_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "CASCADE",
+          "match": "NONE"
+        }
+      ],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "idx_atlas_mob_price_at",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 1,
+          "name": "idx_price_bars_recent",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 2,
+          "name": "sqlite_autoindex_price_bars_1",
+          "unique": 1,
+          "origin": "pk",
+          "partial": 0
+        }
+      ],
+      "row_count": 2052467,
+      "count_error": null
+    },
+    {
+      "name": "raw_items",
+      "internal": false,
+      "create_sql": "CREATE TABLE raw_items (\n id INTEGER PRIMARY KEY,\n source_type TEXT NOT NULL CHECK(source_type IN ('news','filing','item')),\n source_key TEXT NOT NULL,\n parent_key TEXT,\n title TEXT NOT NULL DEFAULT '',\n content TEXT NOT NULL DEFAULT '',\n summary TEXT,\n event_at TEXT,\n received_at TEXT,\n source_url TEXT,\n source_name TEXT,\n status TEXT NOT NULL DEFAULT 'created',\n metadata_json TEXT NOT NULL DEFAULT '{}',\n created_at TEXT,\n updated_at TEXT,\n UNIQUE(source_type,source_key)\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1,
+          "hidden": 0
+        },
+        {
+          "cid": 1,
+          "name": "source_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 2,
+          "name": "source_key",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 3,
+          "name": "parent_key",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 4,
+          "name": "title",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 5,
+          "name": "content",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 6,
+          "name": "summary",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 7,
+          "name": "event_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 8,
+          "name": "received_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 9,
+          "name": "source_url",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 10,
+          "name": "source_name",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 11,
+          "name": "status",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'created'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 12,
+          "name": "metadata_json",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'{}'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 13,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 14,
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "idx_raw_parent",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 1,
+          "name": "idx_raw_type_event",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 2,
+          "name": "sqlite_autoindex_raw_items_1",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0
+        }
+      ],
+      "row_count": 16032,
+      "count_error": null
+    },
+    {
+      "name": "relationships",
+      "internal": false,
+      "create_sql": "CREATE TABLE relationships (\n id INTEGER PRIMARY KEY,\n company_id INTEGER REFERENCES companies(id),\n source_id INTEGER NOT NULL REFERENCES raw_items(id) ON DELETE CASCADE,\n entity_type TEXT NOT NULL DEFAULT 'company',\n entity_key TEXT NOT NULL,\n entity_name TEXT NOT NULL DEFAULT '',\n correlation_reason TEXT,\n match_evidence TEXT,\n match_hits INTEGER NOT NULL DEFAULT 0,\n ai_impact REAL,\n ai_confidence REAL,\n ai_reason TEXT,\n ai_evidence TEXT,\n ai_monetary_effect REAL,\n ai_monetary_effect_reason TEXT,\n price_change_1w_pct REAL,\n price_change_reason TEXT,\n accumulated_impact REAL,\n accumulated_monetary REAL,\n legacy_relation_id TEXT,\n legacy_item_id INTEGER,\n metadata_json TEXT NOT NULL DEFAULT '{}',\n created_at TEXT,\n updated_at TEXT,\n UNIQUE(source_id,entity_key)\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1,
+          "hidden": 0
+        },
+        {
+          "cid": 1,
+          "name": "company_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 2,
+          "name": "source_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 3,
+          "name": "entity_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'company'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 4,
+          "name": "entity_key",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 5,
+          "name": "entity_name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "''",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 6,
+          "name": "correlation_reason",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 7,
+          "name": "match_evidence",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 8,
+          "name": "match_hits",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 9,
+          "name": "ai_impact",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 10,
+          "name": "ai_confidence",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 11,
+          "name": "ai_reason",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 12,
+          "name": "ai_evidence",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 13,
+          "name": "ai_monetary_effect",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 14,
+          "name": "ai_monetary_effect_reason",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 15,
+          "name": "price_change_1w_pct",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 16,
+          "name": "price_change_reason",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 17,
+          "name": "accumulated_impact",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 18,
+          "name": "accumulated_monetary",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 19,
+          "name": "legacy_relation_id",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 20,
+          "name": "legacy_item_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 21,
+          "name": "metadata_json",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": "'{}'",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 22,
+          "name": "created_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 23,
+          "name": "updated_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "id": 0,
+          "seq": 0,
+          "table": "raw_items",
+          "from": "source_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "CASCADE",
+          "match": "NONE"
+        },
+        {
+          "id": 1,
+          "seq": 0,
+          "table": "companies",
+          "from": "company_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "NO ACTION",
+          "match": "NONE"
+        }
+      ],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "idx_rel_company",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 1,
+          "name": "idx_rel_legacy_item",
+          "unique": 1,
+          "origin": "c",
+          "partial": 1
+        },
+        {
+          "seq": 2,
+          "name": "idx_rel_legacy_news",
+          "unique": 1,
+          "origin": "c",
+          "partial": 1
+        },
+        {
+          "seq": 3,
+          "name": "idx_rel_source",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 4,
+          "name": "sqlite_autoindex_relationships_1",
+          "unique": 1,
+          "origin": "u",
+          "partial": 0
+        }
+      ],
+      "row_count": 8031,
+      "count_error": null
+    },
+    {
+      "name": "sqlite_sequence",
+      "internal": true,
+      "create_sql": "CREATE TABLE sqlite_sequence(name,seq)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "name",
+          "type": "",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 1,
+          "name": "seq",
+          "type": "",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": [],
+      "row_count": 3,
+      "count_error": null
+    },
+    {
+      "name": "summary",
+      "internal": false,
+      "create_sql": "CREATE TABLE \"summary\" (\n company_id INTEGER PRIMARY KEY REFERENCES companies(id) ON DELETE CASCADE,\n latest_published TEXT,\n last_news_received_at TEXT,\n latest_filing TEXT,\n latest_item_filed TEXT,\n related_news_count INTEGER NOT NULL DEFAULT 0,\n scored_news_count INTEGER NOT NULL DEFAULT 0,\n scored_items_count INTEGER NOT NULL DEFAULT 0,\n sec_items_count INTEGER NOT NULL DEFAULT 0,\n num_forms INTEGER NOT NULL DEFAULT 0,\n aggregate_score REAL,\n last_price REAL,\n last_price_bar_at TEXT,\n trend_24h REAL,\n trend_7d REAL,\n refreshed_at TEXT NOT NULL\n, max_news_impact REAL, max_sec_impact REAL, latest_event_impact REAL, latest_event_kind TEXT, latest_event_at TEXT, max_news_at TEXT, max_sec_at TEXT, last_assessed_at TEXT, latest_confidence REAL)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "company_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1,
+          "hidden": 0
+        },
+        {
+          "cid": 1,
+          "name": "latest_published",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 2,
+          "name": "last_news_received_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 3,
+          "name": "latest_filing",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 4,
+          "name": "latest_item_filed",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 5,
+          "name": "related_news_count",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 6,
+          "name": "scored_news_count",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 7,
+          "name": "scored_items_count",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 8,
+          "name": "sec_items_count",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 9,
+          "name": "num_forms",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": "0",
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 10,
+          "name": "aggregate_score",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 11,
+          "name": "last_price",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 12,
+          "name": "last_price_bar_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 13,
+          "name": "trend_24h",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 14,
+          "name": "trend_7d",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 15,
+          "name": "refreshed_at",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 16,
+          "name": "max_news_impact",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 17,
+          "name": "max_sec_impact",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 18,
+          "name": "latest_event_impact",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 19,
+          "name": "latest_event_kind",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 20,
+          "name": "latest_event_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 21,
+          "name": "max_news_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 22,
+          "name": "max_sec_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 23,
+          "name": "last_assessed_at",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        },
+        {
+          "cid": 24,
+          "name": "latest_confidence",
+          "type": "REAL",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0,
+          "hidden": 0
+        }
+      ],
+      "foreign_keys": [
+        {
+          "id": 0,
+          "seq": 0,
+          "table": "companies",
+          "from": "company_id",
+          "to": "id",
+          "on_update": "NO ACTION",
+          "on_delete": "CASCADE",
+          "match": "NONE"
+        }
+      ],
+      "indexes": [
+        {
+          "seq": 0,
+          "name": "idx_atlas_mob_latest_event_impact",
+          "unique": 0,
+          "origin": "c",
+          "partial": 1
+        },
+        {
+          "seq": 1,
+          "name": "idx_atlas_mob_max_sec_impact",
+          "unique": 0,
+          "origin": "c",
+          "partial": 1
+        },
+        {
+          "seq": 2,
+          "name": "idx_atlas_mob_max_news_impact",
+          "unique": 0,
+          "origin": "c",
+          "partial": 1
+        },
+        {
+          "seq": 3,
+          "name": "idx_atlas_mob_recent_sec",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 4,
+          "name": "idx_atlas_mob_recent_news",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 5,
+          "name": "idx_atlas_mob_score",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 6,
+          "name": "idx_mobile_score",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 7,
+          "name": "idx_mobile_items",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 8,
+          "name": "idx_mobile_filing",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        },
+        {
+          "seq": 9,
+          "name": "idx_mobile_news",
+          "unique": 0,
+          "origin": "c",
+          "partial": 0
+        }
+      ],
+      "row_count": 8196,
+      "count_error": null
+    }
+  ],
+  "views": [],
+  "indexes": [
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_forms_c",
+      "tbl_name": "forms",
+      "sql": "CREATE INDEX idx_atlas_mob_forms_c ON forms(company_id,filed_date,id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_items_f",
+      "tbl_name": "items",
+      "sql": "CREATE INDEX idx_atlas_mob_items_f ON items(form_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_items_scored",
+      "tbl_name": "items",
+      "sql": "CREATE INDEX idx_atlas_mob_items_scored ON items(form_id,ABS(ai_impact),id) WHERE status='analysed' AND ai_impact IS NOT NULL"
+    },
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_latest_event_impact",
+      "tbl_name": "summary",
+      "sql": "CREATE INDEX idx_atlas_mob_latest_event_impact ON \"summary\"(ROUND(latest_event_impact,2) DESC, company_id) WHERE latest_event_impact IS NOT NULL"
+    },
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_max_news_impact",
+      "tbl_name": "summary",
+      "sql": "CREATE INDEX idx_atlas_mob_max_news_impact ON \"summary\"(ROUND(max_news_impact,2) DESC, company_id) WHERE max_news_impact IS NOT NULL"
+    },
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_max_sec_impact",
+      "tbl_name": "summary",
+      "sql": "CREATE INDEX idx_atlas_mob_max_sec_impact ON \"summary\"(ROUND(max_sec_impact,2) DESC, company_id) WHERE max_sec_impact IS NOT NULL"
+    },
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_ncr_c",
+      "tbl_name": "news_company_relations",
+      "sql": "CREATE INDEX idx_atlas_mob_ncr_c ON news_company_relations(company_id,news_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_ncr_n",
+      "tbl_name": "news_company_relations",
+      "sql": "CREATE INDEX idx_atlas_mob_ncr_n ON news_company_relations(news_id,company_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_ncr_scored",
+      "tbl_name": "news_company_relations",
+      "sql": "CREATE INDEX idx_atlas_mob_ncr_scored ON news_company_relations(company_id,ABS(ai_impact),news_id) WHERE status='analysed' AND ai_impact IS NOT NULL"
+    },
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_price_at",
+      "tbl_name": "price_bars",
+      "sql": "CREATE INDEX idx_atlas_mob_price_at ON price_bars(company_id,bar_time_utc DESC)"
+    },
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_recent_news",
+      "tbl_name": "summary",
+      "sql": "CREATE INDEX idx_atlas_mob_recent_news ON \"summary\"(latest_published DESC,company_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_recent_sec",
+      "tbl_name": "summary",
+      "sql": "CREATE INDEX idx_atlas_mob_recent_sec ON \"summary\"(latest_item_filed DESC,company_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_atlas_mob_score",
+      "tbl_name": "summary",
+      "sql": "CREATE INDEX idx_atlas_mob_score ON \"summary\"(ROUND(aggregate_score,2) DESC,company_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_forms_company_time",
+      "tbl_name": "forms",
+      "sql": "CREATE INDEX idx_forms_company_time ON forms(company_id,filed_date DESC)"
+    },
+    {
+      "type": "index",
+      "name": "idx_forms_type_time",
+      "tbl_name": "forms",
+      "sql": "CREATE INDEX idx_forms_type_time ON forms(form_type,filed_date DESC)"
+    },
+    {
+      "type": "index",
+      "name": "idx_items_form_id",
+      "tbl_name": "items",
+      "sql": "CREATE INDEX idx_items_form_id ON items(form_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_mobile_filing",
+      "tbl_name": "summary",
+      "sql": "CREATE INDEX idx_mobile_filing ON \"summary\"(latest_filing DESC,company_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_mobile_items",
+      "tbl_name": "summary",
+      "sql": "CREATE INDEX idx_mobile_items ON \"summary\"(latest_item_filed DESC,company_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_mobile_news",
+      "tbl_name": "summary",
+      "sql": "CREATE INDEX idx_mobile_news ON \"summary\"(latest_published DESC,company_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_mobile_score",
+      "tbl_name": "summary",
+      "sql": "CREATE INDEX idx_mobile_score ON \"summary\"(aggregate_score DESC,company_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_news_rel_analysis",
+      "tbl_name": "news_company_relations",
+      "sql": "CREATE INDEX idx_news_rel_analysis ON news_company_relations(status,news_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_news_rel_company",
+      "tbl_name": "news_company_relations",
+      "sql": "CREATE INDEX idx_news_rel_company ON news_company_relations(company_id,news_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_news_rel_entity",
+      "tbl_name": "news_company_relations",
+      "sql": "CREATE INDEX idx_news_rel_entity ON news_company_relations(entity_key,news_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_news_status",
+      "tbl_name": "news",
+      "sql": "CREATE INDEX idx_news_status ON news(status,published_utc)"
+    },
+    {
+      "type": "index",
+      "name": "idx_news_story",
+      "tbl_name": "news",
+      "sql": "CREATE INDEX idx_news_story ON news(story_key,published_utc)"
+    },
+    {
+      "type": "index",
+      "name": "idx_price_bars_recent",
+      "tbl_name": "price_bars",
+      "sql": "CREATE INDEX idx_price_bars_recent ON price_bars(bar_time_utc DESC)"
+    },
+    {
+      "type": "index",
+      "name": "idx_raw_parent",
+      "tbl_name": "raw_items",
+      "sql": "CREATE INDEX idx_raw_parent ON raw_items(parent_key,source_type)"
+    },
+    {
+      "type": "index",
+      "name": "idx_raw_type_event",
+      "tbl_name": "raw_items",
+      "sql": "CREATE INDEX idx_raw_type_event ON raw_items(source_type,event_at DESC)"
+    },
+    {
+      "type": "index",
+      "name": "idx_rel_company",
+      "tbl_name": "relationships",
+      "sql": "CREATE INDEX idx_rel_company ON relationships(company_id)"
+    },
+    {
+      "type": "index",
+      "name": "idx_rel_legacy_item",
+      "tbl_name": "relationships",
+      "sql": "CREATE UNIQUE INDEX idx_rel_legacy_item ON relationships(legacy_item_id)\n WHERE legacy_item_id IS NOT NULL"
+    },
+    {
+      "type": "index",
+      "name": "idx_rel_legacy_news",
+      "tbl_name": "relationships",
+      "sql": "CREATE UNIQUE INDEX idx_rel_legacy_news ON relationships(legacy_relation_id)\n WHERE legacy_relation_id IS NOT NULL"
+    },
+    {
+      "type": "index",
+      "name": "idx_rel_source",
+      "tbl_name": "relationships",
+      "sql": "CREATE INDEX idx_rel_source ON relationships(source_id)"
+    },
+    {
+      "type": "index",
+      "name": "sqlite_autoindex_companies_1",
+      "tbl_name": "companies",
+      "sql": null
+    },
+    {
+      "type": "index",
+      "name": "sqlite_autoindex_forms_1",
+      "tbl_name": "forms",
+      "sql": null
+    },
+    {
+      "type": "index",
+      "name": "sqlite_autoindex_forms_2",
+      "tbl_name": "forms",
+      "sql": null
+    },
+    {
+      "type": "index",
+      "name": "sqlite_autoindex_items_1",
+      "tbl_name": "items",
+      "sql": null
+    },
+    {
+      "type": "index",
+      "name": "sqlite_autoindex_news_1",
+      "tbl_name": "news",
+      "sql": null
+    },
+    {
+      "type": "index",
+      "name": "sqlite_autoindex_news_2",
+      "tbl_name": "news",
+      "sql": null
+    },
+    {
+      "type": "index",
+      "name": "sqlite_autoindex_news_company_relations_1",
+      "tbl_name": "news_company_relations",
+      "sql": null
+    },
+    {
+      "type": "index",
+      "name": "sqlite_autoindex_news_company_relations_2",
+      "tbl_name": "news_company_relations",
+      "sql": null
+    },
+    {
+      "type": "index",
+      "name": "sqlite_autoindex_price_bars_1",
+      "tbl_name": "price_bars",
+      "sql": null
+    },
+    {
+      "type": "index",
+      "name": "sqlite_autoindex_raw_items_1",
+      "tbl_name": "raw_items",
+      "sql": null
+    },
+    {
+      "type": "index",
+      "name": "sqlite_autoindex_relationships_1",
+      "tbl_name": "relationships",
+      "sql": null
+    }
+  ],
+  "triggers": [
+    {
+      "type": "trigger",
+      "name": "atlas_mob_comp_ad",
+      "tbl_name": "companies",
+      "sql": "CREATE TRIGGER atlas_mob_comp_ad AFTER DELETE ON companies BEGIN DELETE FROM summary WHERE company_id=OLD.id; END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_comp_ai",
+      "tbl_name": "companies",
+      "sql": "CREATE TRIGGER \"atlas_mob_comp_ai\" AFTER INSERT ON \"companies\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT NEW.id);\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT NEW.id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_forms_ad",
+      "tbl_name": "forms",
+      "sql": "CREATE TRIGGER \"atlas_mob_forms_ad\" AFTER DELETE ON \"forms\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT OLD.company_id);\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT OLD.company_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_forms_ai",
+      "tbl_name": "forms",
+      "sql": "CREATE TRIGGER \"atlas_mob_forms_ai\" AFTER INSERT ON \"forms\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT NEW.company_id);\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT NEW.company_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_forms_au",
+      "tbl_name": "forms",
+      "sql": "CREATE TRIGGER \"atlas_mob_forms_au\" AFTER UPDATE OF company_id,filed_date,created_at ON \"forms\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT OLD.company_id UNION SELECT NEW.company_id);\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT OLD.company_id UNION SELECT NEW.company_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_items_ad",
+      "tbl_name": "items",
+      "sql": "CREATE TRIGGER \"atlas_mob_items_ad\" AFTER DELETE ON \"items\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT (SELECT company_id FROM forms WHERE id=OLD.form_id));\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT (SELECT company_id FROM forms WHERE id=OLD.form_id));\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_items_ai",
+      "tbl_name": "items",
+      "sql": "CREATE TRIGGER \"atlas_mob_items_ai\" AFTER INSERT ON \"items\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT (SELECT company_id FROM forms WHERE id=NEW.form_id));\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT (SELECT company_id FROM forms WHERE id=NEW.form_id));\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_items_au",
+      "tbl_name": "items",
+      "sql": "CREATE TRIGGER \"atlas_mob_items_au\" AFTER UPDATE OF form_id,status,ai_impact,ai_confidence,updated_at ON \"items\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT (SELECT company_id FROM forms WHERE id=OLD.form_id) UNION SELECT company_id FROM forms WHERE id=NEW.form_id);\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT (SELECT company_id FROM forms WHERE id=OLD.form_id) UNION SELECT company_id FROM forms WHERE id=NEW.form_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_news_ad",
+      "tbl_name": "news",
+      "sql": "CREATE TRIGGER \"atlas_mob_news_ad\" AFTER DELETE ON \"news\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT DISTINCT company_id FROM news_company_relations WHERE news_id=OLD.news_id);\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT DISTINCT company_id FROM news_company_relations WHERE news_id=OLD.news_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_news_ai",
+      "tbl_name": "news",
+      "sql": "CREATE TRIGGER \"atlas_mob_news_ai\" AFTER INSERT ON \"news\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT DISTINCT company_id FROM news_company_relations WHERE news_id=NEW.news_id);\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT DISTINCT company_id FROM news_company_relations WHERE news_id=NEW.news_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_news_au",
+      "tbl_name": "news",
+      "sql": "CREATE TRIGGER \"atlas_mob_news_au\" AFTER UPDATE OF published_utc,created_at,status ON \"news\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT DISTINCT company_id FROM news_company_relations WHERE news_id=NEW.news_id);\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT DISTINCT company_id FROM news_company_relations WHERE news_id=NEW.news_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_news_rel_ad",
+      "tbl_name": "news_company_relations",
+      "sql": "CREATE TRIGGER \"atlas_mob_news_rel_ad\" AFTER DELETE ON \"news_company_relations\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT OLD.company_id);\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT OLD.company_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_news_rel_ai",
+      "tbl_name": "news_company_relations",
+      "sql": "CREATE TRIGGER \"atlas_mob_news_rel_ai\" AFTER INSERT ON \"news_company_relations\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT NEW.company_id);\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT NEW.company_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_news_rel_au",
+      "tbl_name": "news_company_relations",
+      "sql": "CREATE TRIGGER \"atlas_mob_news_rel_au\" AFTER UPDATE OF company_id,news_id,status,ai_impact,ai_confidence,updated_at ON \"news_company_relations\" BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT OLD.company_id UNION SELECT NEW.company_id);\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT OLD.company_id UNION SELECT NEW.company_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_price_ad",
+      "tbl_name": "price_bars",
+      "sql": "CREATE TRIGGER \"atlas_mob_price_ad\" AFTER DELETE ON price_bars BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT OLD.company_id);\nUPDATE summary SET\n    refreshed_at=strftime('%Y-%m-%dT%H:%M:%fZ','now'),\n    (last_price,last_price_bar_at,trend_24h,trend_7d) = (\n      WITH cur AS (SELECT close,bar_time_utc FROM price_bars p\n                  WHERE p.company_id=summary.company_id AND p.close IS NOT NULL\n                  ORDER BY p.bar_time_utc DESC LIMIT 1),\n           base24 AS (SELECT close FROM price_bars p WHERE p.company_id=summary.company_id\n                    AND p.close IS NOT NULL AND julianday(p.bar_time_utc)<=julianday((SELECT bar_time_utc FROM cur))-1\n                    ORDER BY p.bar_time_utc DESC LIMIT 1),\n           base7 AS (SELECT close FROM price_bars p WHERE p.company_id=summary.company_id\n                    AND p.close IS NOT NULL AND julianday(p.bar_time_utc)<=julianday((SELECT bar_time_utc FROM cur))-7\n                    ORDER BY p.bar_time_utc DESC LIMIT 1)\n      SELECT (SELECT close FROM cur),(SELECT bar_time_utc FROM cur),\n             CASE WHEN (SELECT close FROM base24) IS NOT NULL AND (SELECT close FROM base24)!=0\n                  THEN 100.0*((SELECT close FROM cur)/(SELECT close FROM base24)-1.0) END,\n             CASE WHEN (SELECT close FROM base7) IS NOT NULL AND (SELECT close FROM base7)!=0\n                  THEN 100.0*((SELECT close FROM cur)/(SELECT close FROM base7)-1.0) END\n    ) WHERE company_id IN (SELECT OLD.company_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_price_ai",
+      "tbl_name": "price_bars",
+      "sql": "CREATE TRIGGER \"atlas_mob_price_ai\" AFTER INSERT ON price_bars BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT NEW.company_id);\nUPDATE summary SET\n    refreshed_at=strftime('%Y-%m-%dT%H:%M:%fZ','now'),\n    (last_price,last_price_bar_at,trend_24h,trend_7d) = (\n      WITH cur AS (SELECT close,bar_time_utc FROM price_bars p\n                  WHERE p.company_id=summary.company_id AND p.close IS NOT NULL\n                  ORDER BY p.bar_time_utc DESC LIMIT 1),\n           base24 AS (SELECT close FROM price_bars p WHERE p.company_id=summary.company_id\n                    AND p.close IS NOT NULL AND julianday(p.bar_time_utc)<=julianday((SELECT bar_time_utc FROM cur))-1\n                    ORDER BY p.bar_time_utc DESC LIMIT 1),\n           base7 AS (SELECT close FROM price_bars p WHERE p.company_id=summary.company_id\n                    AND p.close IS NOT NULL AND julianday(p.bar_time_utc)<=julianday((SELECT bar_time_utc FROM cur))-7\n                    ORDER BY p.bar_time_utc DESC LIMIT 1)\n      SELECT (SELECT close FROM cur),(SELECT bar_time_utc FROM cur),\n             CASE WHEN (SELECT close FROM base24) IS NOT NULL AND (SELECT close FROM base24)!=0\n                  THEN 100.0*((SELECT close FROM cur)/(SELECT close FROM base24)-1.0) END,\n             CASE WHEN (SELECT close FROM base7) IS NOT NULL AND (SELECT close FROM base7)!=0\n                  THEN 100.0*((SELECT close FROM cur)/(SELECT close FROM base7)-1.0) END\n    ) WHERE company_id IN (SELECT NEW.company_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_price_au",
+      "tbl_name": "price_bars",
+      "sql": "CREATE TRIGGER \"atlas_mob_price_au\" AFTER UPDATE OF company_id,bar_time_utc,close ON price_bars BEGIN\nINSERT OR IGNORE INTO summary(company_id,refreshed_at) SELECT id,strftime('%Y-%m-%dT%H:%M:%fZ','now') FROM companies WHERE id IN (SELECT OLD.company_id UNION SELECT NEW.company_id);\nUPDATE summary SET\n    refreshed_at=strftime('%Y-%m-%dT%H:%M:%fZ','now'),\n    (last_price,last_price_bar_at,trend_24h,trend_7d) = (\n      WITH cur AS (SELECT close,bar_time_utc FROM price_bars p\n                  WHERE p.company_id=summary.company_id AND p.close IS NOT NULL\n                  ORDER BY p.bar_time_utc DESC LIMIT 1),\n           base24 AS (SELECT close FROM price_bars p WHERE p.company_id=summary.company_id\n                    AND p.close IS NOT NULL AND julianday(p.bar_time_utc)<=julianday((SELECT bar_time_utc FROM cur))-1\n                    ORDER BY p.bar_time_utc DESC LIMIT 1),\n           base7 AS (SELECT close FROM price_bars p WHERE p.company_id=summary.company_id\n                    AND p.close IS NOT NULL AND julianday(p.bar_time_utc)<=julianday((SELECT bar_time_utc FROM cur))-7\n                    ORDER BY p.bar_time_utc DESC LIMIT 1)\n      SELECT (SELECT close FROM cur),(SELECT bar_time_utc FROM cur),\n             CASE WHEN (SELECT close FROM base24) IS NOT NULL AND (SELECT close FROM base24)!=0\n                  THEN 100.0*((SELECT close FROM cur)/(SELECT close FROM base24)-1.0) END,\n             CASE WHEN (SELECT close FROM base7) IS NOT NULL AND (SELECT close FROM base7)!=0\n                  THEN 100.0*((SELECT close FROM cur)/(SELECT close FROM base7)-1.0) END\n    ) WHERE company_id IN (SELECT OLD.company_id UNION SELECT NEW.company_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_summary_ai",
+      "tbl_name": "summary",
+      "sql": "CREATE TRIGGER \"atlas_mob_summary_ai\" AFTER INSERT ON \"summary\" BEGIN\nUPDATE summary SET (related_news_count,scored_news_count,scored_items_count,sec_items_count,num_forms,latest_published,last_news_received_at,latest_filing,latest_item_filed,aggregate_score,max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT COUNT(DISTINCT news_id) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT COUNT(*) FROM n WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i WHERE status='analysed' AND impact IS NOT NULL),\n(SELECT COUNT(*) FROM i),\n(SELECT COUNT(*) FROM f),\n(SELECT MAX(published_utc) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(created_at) FROM n WHERE news_status NOT IN ('created','skipped')),\n(SELECT MAX(filed_date) FROM f),\n(SELECT MAX(filed_date) FROM i),\n(SELECT SUM(impact) FROM scored),\n(SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT NEW.company_id);\nUPDATE summary SET\n    refreshed_at=strftime('%Y-%m-%dT%H:%M:%fZ','now'),\n    (last_price,last_price_bar_at,trend_24h,trend_7d) = (\n      WITH cur AS (SELECT close,bar_time_utc FROM price_bars p\n                  WHERE p.company_id=summary.company_id AND p.close IS NOT NULL\n                  ORDER BY p.bar_time_utc DESC LIMIT 1),\n           base24 AS (SELECT close FROM price_bars p WHERE p.company_id=summary.company_id\n                    AND p.close IS NOT NULL AND julianday(p.bar_time_utc)<=julianday((SELECT bar_time_utc FROM cur))-1\n                    ORDER BY p.bar_time_utc DESC LIMIT 1),\n           base7 AS (SELECT close FROM price_bars p WHERE p.company_id=summary.company_id\n                    AND p.close IS NOT NULL AND julianday(p.bar_time_utc)<=julianday((SELECT bar_time_utc FROM cur))-7\n                    ORDER BY p.bar_time_utc DESC LIMIT 1)\n      SELECT (SELECT close FROM cur),(SELECT bar_time_utc FROM cur),\n             CASE WHEN (SELECT close FROM base24) IS NOT NULL AND (SELECT close FROM base24)!=0\n                  THEN 100.0*((SELECT close FROM cur)/(SELECT close FROM base24)-1.0) END,\n             CASE WHEN (SELECT close FROM base7) IS NOT NULL AND (SELECT close FROM base7)!=0\n                  THEN 100.0*((SELECT close FROM cur)/(SELECT close FROM base7)-1.0) END\n    ) WHERE company_id IN (SELECT NEW.company_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_mob_summary_au",
+      "tbl_name": "summary",
+      "sql": "CREATE TRIGGER \"atlas_mob_summary_au\" AFTER UPDATE OF aggregate_score,related_news_count,scored_news_count,scored_items_count,num_forms,latest_published,latest_filing ON \"summary\" BEGIN\nUPDATE summary SET (max_news_impact,max_sec_impact,latest_event_impact,latest_event_kind,latest_event_at,max_news_at,max_sec_at,last_assessed_at,latest_confidence,refreshed_at) = (\nWITH\n n AS MATERIALIZED (\n   SELECT r.news_id,r.relation_id,r.status, r.ai_impact impact,r.ai_confidence confidence,\n     r.updated_at assessed_at, z.status news_status,z.published_utc,z.created_at,\n     COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.published_utc),'')),\n              strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(z.created_at),''))) event_at\n   FROM news_company_relations r JOIN news z ON z.news_id=r.news_id\n   WHERE r.company_id=summary.company_id\n ),\n f AS MATERIALIZED (SELECT id,filed_date,created_at,\n       COALESCE(strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(filed_date),'')),\n                strftime('%Y-%m-%dT%H:%M:%fZ',NULLIF(TRIM(created_at),''))) event_at\n       FROM forms WHERE company_id=summary.company_id),\n i AS MATERIALIZED (\n   SELECT a.id,a.status,a.ai_impact impact,a.ai_confidence confidence,a.updated_at assessed_at,\n          f.filed_date,f.event_at\n   FROM items a JOIN f ON f.id=a.form_id\n ),\n scored AS MATERIALIZED (\n   SELECT 'news' kind,impact,confidence,assessed_at,event_at,relation_id record_id\n   FROM n WHERE status='analysed' AND impact IS NOT NULL\n   UNION ALL\n   SELECT 'sec',impact,confidence,assessed_at,event_at,CAST(id AS TEXT)\n   FROM i WHERE status='analysed' AND impact IS NOT NULL\n ),\n mxn AS (SELECT impact,event_at FROM scored WHERE kind='news'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n mxs AS (SELECT impact,event_at FROM scored WHERE kind='sec'\n         ORDER BY ABS(impact) DESC,(event_at IS NULL),event_at DESC,record_id DESC LIMIT 1),\n latest AS (SELECT impact,kind,event_at FROM scored WHERE event_at IS NOT NULL\n            ORDER BY event_at DESC,kind ASC,record_id DESC LIMIT 1),\n last_assessment AS (SELECT confidence FROM scored\n                   ORDER BY assessed_at DESC,kind ASC,record_id DESC LIMIT 1)\nSELECT (SELECT impact FROM mxn),\n(SELECT impact FROM mxs),\n(SELECT impact FROM latest),\n(SELECT kind FROM latest),\n(SELECT event_at FROM latest),\n(SELECT event_at FROM mxn),\n(SELECT event_at FROM mxs),\n(SELECT MAX(assessed_at) FROM scored),\n(SELECT confidence FROM last_assessment),\nstrftime('%Y-%m-%dT%H:%M:%fZ','now')) WHERE company_id IN (SELECT NEW.company_id);\nEND"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_filing_delete",
+      "tbl_name": "forms",
+      "sql": "CREATE TRIGGER atlas_unified_filing_delete AFTER DELETE ON forms BEGIN UPDATE raw_items SET status='skipped',metadata_json=json_set(metadata_json,'$.atlas_deleted',1) WHERE source_type='filing' AND source_key=CAST(OLD.id AS TEXT);UPDATE relationships SET ai_impact=NULL,ai_monetary_effect=NULL,accumulated_impact=NULL,accumulated_monetary=NULL WHERE source_id=(SELECT id FROM raw_items WHERE source_type='filing' AND source_key=CAST(OLD.id AS TEXT)); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_filing_insert",
+      "tbl_name": "forms",
+      "sql": "CREATE TRIGGER atlas_unified_filing_insert AFTER INSERT ON forms BEGIN INSERT INTO raw_items (source_type,source_key,parent_key,title,content,summary,event_at,received_at,source_url,source_name,status,metadata_json,created_at,updated_at) SELECT 'filing',CAST(f.id AS TEXT),NULL,f.form_name,'',NULL,f.filed_date,f.created_at,f.index_url,'SEC',CASE WHEN f.status='analysed' THEN 'analysed' WHEN f.status IN ('skipped','rejected','filtered') THEN 'skipped' WHEN f.status='connected' THEN 'connected' ELSE 'created' END,json_object('id',f.\"id\",'company_id',f.\"company_id\",'form_type',f.\"form_type\",'form_name',f.\"form_name\",'filed_date',f.\"filed_date\",'index_url',f.\"index_url\",'primary_url',f.\"primary_url\",'file_guid',f.\"file_guid\",'file_name',f.\"file_name\",'error',f.\"error\",'created_at',f.\"created_at\",'updated_at',f.\"updated_at\"),f.created_at,f.updated_at FROM forms f WHERE f.id=NEW.id ON CONFLICT(source_type,source_key) DO UPDATE SET parent_key=excluded.parent_key,title=excluded.title,content=excluded.content,summary=excluded.summary,event_at=excluded.event_at,received_at=excluded.received_at,source_url=excluded.source_url,source_name=excluded.source_name,status=excluded.status,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at; INSERT INTO relationships (\n       company_id,source_id,entity_type,entity_key,entity_name,\n       legacy_relation_id,metadata_json,created_at,updated_at)\n      SELECT f.company_id,s.id,'company','company:'||f.company_id,c.name,\n             NULL,json_object('id',f.\"id\",'company_id',f.\"company_id\",'form_type',f.\"form_type\",'form_name',f.\"form_name\",'filed_date',f.\"filed_date\",'index_url',f.\"index_url\",'primary_url',f.\"primary_url\",'file_guid',f.\"file_guid\",'file_name',f.\"file_name\",'error',f.\"error\",'created_at',f.\"created_at\",'updated_at',f.\"updated_at\"),f.created_at,f.updated_at\n      FROM forms f JOIN companies c ON c.id=f.company_id\n      JOIN raw_items s ON s.source_type='filing' AND s.source_key=CAST(f.id AS TEXT)\n       WHERE f.id=NEW.id\n      ON CONFLICT(source_id,entity_key) DO UPDATE SET\n         company_id=excluded.company_id,entity_name=excluded.entity_name,\n         metadata_json=excluded.metadata_json,updated_at=excluded.updated_at; UPDATE raw_items SET status='connected' WHERE source_type='filing' AND source_key=CAST(NEW.id AS TEXT) AND status='created';  INSERT INTO raw_items (source_type,source_key,parent_key,title,content,summary,event_at,received_at,source_url,source_name,status,metadata_json,created_at,updated_at) SELECT 'item',CAST(i.id AS TEXT),f.index_url,i.item_name,i.item_text,NULL,f.filed_date,i.created_at,COALESCE(f.primary_url,f.index_url),f.form_type,CASE WHEN i.status='analysed' THEN 'analysed' WHEN i.status IN ('skipped','rejected','filtered') THEN 'skipped' WHEN i.status='connected' THEN 'connected' ELSE 'created' END,json_object('id',i.\"id\",'form_id',i.\"form_id\",'file_guid',i.\"file_guid\",'file_name',i.\"file_name\",'item_type',i.\"item_type\",'item_occurrence',i.\"item_occurrence\",'item_name',i.\"item_name\",'ai_impact',i.\"ai_impact\",'ai_confidence',i.\"ai_confidence\",'ai_reason',i.\"ai_reason\",'ai_evidence',i.\"ai_evidence\",'ai_monetary_effect',i.\"ai_monetary_effect\",'ai_monetary_effect_reason',i.\"ai_monetary_effect_reason\",'price_change_1w_pct',i.\"price_change_1w_pct\",'price_change_reason',i.\"price_change_reason\",'errors',i.\"errors\",'created_at',i.\"created_at\",'updated_at',i.\"updated_at\"),i.created_at,i.updated_at FROM items i JOIN forms f ON f.id=i.form_id WHERE i.form_id=NEW.id ON CONFLICT(source_type,source_key) DO UPDATE SET parent_key=excluded.parent_key,title=excluded.title,content=excluded.content,summary=excluded.summary,event_at=excluded.event_at,received_at=excluded.received_at,source_url=excluded.source_url,source_name=excluded.source_name,status=excluded.status,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at;  INSERT INTO relationships (company_id,source_id,entity_type,entity_key,entity_name,\n      ai_impact,ai_confidence,ai_reason,ai_evidence,ai_monetary_effect,\n      ai_monetary_effect_reason,price_change_1w_pct,price_change_reason,\n      legacy_relation_id,legacy_item_id,metadata_json,created_at,updated_at) SELECT f.company_id,s.id,'company','company:'||f.company_id,c.name,\n       CASE WHEN i.status='analysed' THEN i.ai_impact END,\n       CASE WHEN i.status='analysed' THEN i.ai_confidence END,\n       CASE WHEN i.status='analysed' THEN i.ai_reason END,\n       CASE WHEN i.status='analysed' THEN i.ai_evidence END,\n       CASE WHEN i.status='analysed' THEN i.ai_monetary_effect END,\n       CASE WHEN i.status='analysed' THEN i.ai_monetary_effect_reason END,\n       CASE WHEN i.status='analysed' THEN i.price_change_1w_pct END,\n       CASE WHEN i.status='analysed' THEN i.price_change_reason END,\n       NULL,i.id,json_object('id',i.\"id\",'form_id',i.\"form_id\",'file_guid',i.\"file_guid\",'file_name',i.\"file_name\",'item_type',i.\"item_type\",'item_occurrence',i.\"item_occurrence\",'item_name',i.\"item_name\",'ai_impact',i.\"ai_impact\",'ai_confidence',i.\"ai_confidence\",'ai_reason',i.\"ai_reason\",'ai_evidence',i.\"ai_evidence\",'ai_monetary_effect',i.\"ai_monetary_effect\",'ai_monetary_effect_reason',i.\"ai_monetary_effect_reason\",'price_change_1w_pct',i.\"price_change_1w_pct\",'price_change_reason',i.\"price_change_reason\",'errors',i.\"errors\",'created_at',i.\"created_at\",'updated_at',i.\"updated_at\"),i.created_at,i.updated_at\n       FROM items i JOIN forms f ON f.id=i.form_id JOIN companies c ON c.id=f.company_id\n       JOIN raw_items s ON s.source_type='item' AND s.source_key=CAST(i.id AS TEXT)\n        WHERE i.form_id=NEW.id ON CONFLICT(source_id,entity_key) DO UPDATE SET company_id=excluded.company_id,entity_type=excluded.entity_type,entity_name=excluded.entity_name,ai_impact=excluded.ai_impact,ai_confidence=excluded.ai_confidence,ai_reason=excluded.ai_reason,ai_evidence=excluded.ai_evidence,ai_monetary_effect=excluded.ai_monetary_effect,ai_monetary_effect_reason=excluded.ai_monetary_effect_reason,price_change_1w_pct=excluded.price_change_1w_pct,price_change_reason=excluded.price_change_reason,legacy_relation_id=excluded.legacy_relation_id,legacy_item_id=excluded.legacy_item_id,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at; UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT NEW.company_id) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT NEW.company_id) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_filing_update",
+      "tbl_name": "forms",
+      "sql": "CREATE TRIGGER atlas_unified_filing_update AFTER UPDATE ON forms BEGIN INSERT INTO raw_items (source_type,source_key,parent_key,title,content,summary,event_at,received_at,source_url,source_name,status,metadata_json,created_at,updated_at) SELECT 'filing',CAST(f.id AS TEXT),NULL,f.form_name,'',NULL,f.filed_date,f.created_at,f.index_url,'SEC',CASE WHEN f.status='analysed' THEN 'analysed' WHEN f.status IN ('skipped','rejected','filtered') THEN 'skipped' WHEN f.status='connected' THEN 'connected' ELSE 'created' END,json_object('id',f.\"id\",'company_id',f.\"company_id\",'form_type',f.\"form_type\",'form_name',f.\"form_name\",'filed_date',f.\"filed_date\",'index_url',f.\"index_url\",'primary_url',f.\"primary_url\",'file_guid',f.\"file_guid\",'file_name',f.\"file_name\",'error',f.\"error\",'created_at',f.\"created_at\",'updated_at',f.\"updated_at\"),f.created_at,f.updated_at FROM forms f WHERE f.id=NEW.id ON CONFLICT(source_type,source_key) DO UPDATE SET parent_key=excluded.parent_key,title=excluded.title,content=excluded.content,summary=excluded.summary,event_at=excluded.event_at,received_at=excluded.received_at,source_url=excluded.source_url,source_name=excluded.source_name,status=excluded.status,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at; INSERT INTO relationships (\n       company_id,source_id,entity_type,entity_key,entity_name,\n       legacy_relation_id,metadata_json,created_at,updated_at)\n      SELECT f.company_id,s.id,'company','company:'||f.company_id,c.name,\n             NULL,json_object('id',f.\"id\",'company_id',f.\"company_id\",'form_type',f.\"form_type\",'form_name',f.\"form_name\",'filed_date',f.\"filed_date\",'index_url',f.\"index_url\",'primary_url',f.\"primary_url\",'file_guid',f.\"file_guid\",'file_name',f.\"file_name\",'error',f.\"error\",'created_at',f.\"created_at\",'updated_at',f.\"updated_at\"),f.created_at,f.updated_at\n      FROM forms f JOIN companies c ON c.id=f.company_id\n      JOIN raw_items s ON s.source_type='filing' AND s.source_key=CAST(f.id AS TEXT)\n       WHERE f.id=NEW.id\n      ON CONFLICT(source_id,entity_key) DO UPDATE SET\n         company_id=excluded.company_id,entity_name=excluded.entity_name,\n         metadata_json=excluded.metadata_json,updated_at=excluded.updated_at; UPDATE raw_items SET status='connected' WHERE source_type='filing' AND source_key=CAST(NEW.id AS TEXT) AND status='created';  INSERT INTO raw_items (source_type,source_key,parent_key,title,content,summary,event_at,received_at,source_url,source_name,status,metadata_json,created_at,updated_at) SELECT 'item',CAST(i.id AS TEXT),f.index_url,i.item_name,i.item_text,NULL,f.filed_date,i.created_at,COALESCE(f.primary_url,f.index_url),f.form_type,CASE WHEN i.status='analysed' THEN 'analysed' WHEN i.status IN ('skipped','rejected','filtered') THEN 'skipped' WHEN i.status='connected' THEN 'connected' ELSE 'created' END,json_object('id',i.\"id\",'form_id',i.\"form_id\",'file_guid',i.\"file_guid\",'file_name',i.\"file_name\",'item_type',i.\"item_type\",'item_occurrence',i.\"item_occurrence\",'item_name',i.\"item_name\",'ai_impact',i.\"ai_impact\",'ai_confidence',i.\"ai_confidence\",'ai_reason',i.\"ai_reason\",'ai_evidence',i.\"ai_evidence\",'ai_monetary_effect',i.\"ai_monetary_effect\",'ai_monetary_effect_reason',i.\"ai_monetary_effect_reason\",'price_change_1w_pct',i.\"price_change_1w_pct\",'price_change_reason',i.\"price_change_reason\",'errors',i.\"errors\",'created_at',i.\"created_at\",'updated_at',i.\"updated_at\"),i.created_at,i.updated_at FROM items i JOIN forms f ON f.id=i.form_id WHERE i.form_id=NEW.id ON CONFLICT(source_type,source_key) DO UPDATE SET parent_key=excluded.parent_key,title=excluded.title,content=excluded.content,summary=excluded.summary,event_at=excluded.event_at,received_at=excluded.received_at,source_url=excluded.source_url,source_name=excluded.source_name,status=excluded.status,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at;  INSERT INTO relationships (company_id,source_id,entity_type,entity_key,entity_name,\n      ai_impact,ai_confidence,ai_reason,ai_evidence,ai_monetary_effect,\n      ai_monetary_effect_reason,price_change_1w_pct,price_change_reason,\n      legacy_relation_id,legacy_item_id,metadata_json,created_at,updated_at) SELECT f.company_id,s.id,'company','company:'||f.company_id,c.name,\n       CASE WHEN i.status='analysed' THEN i.ai_impact END,\n       CASE WHEN i.status='analysed' THEN i.ai_confidence END,\n       CASE WHEN i.status='analysed' THEN i.ai_reason END,\n       CASE WHEN i.status='analysed' THEN i.ai_evidence END,\n       CASE WHEN i.status='analysed' THEN i.ai_monetary_effect END,\n       CASE WHEN i.status='analysed' THEN i.ai_monetary_effect_reason END,\n       CASE WHEN i.status='analysed' THEN i.price_change_1w_pct END,\n       CASE WHEN i.status='analysed' THEN i.price_change_reason END,\n       NULL,i.id,json_object('id',i.\"id\",'form_id',i.\"form_id\",'file_guid',i.\"file_guid\",'file_name',i.\"file_name\",'item_type',i.\"item_type\",'item_occurrence',i.\"item_occurrence\",'item_name',i.\"item_name\",'ai_impact',i.\"ai_impact\",'ai_confidence',i.\"ai_confidence\",'ai_reason',i.\"ai_reason\",'ai_evidence',i.\"ai_evidence\",'ai_monetary_effect',i.\"ai_monetary_effect\",'ai_monetary_effect_reason',i.\"ai_monetary_effect_reason\",'price_change_1w_pct',i.\"price_change_1w_pct\",'price_change_reason',i.\"price_change_reason\",'errors',i.\"errors\",'created_at',i.\"created_at\",'updated_at',i.\"updated_at\"),i.created_at,i.updated_at\n       FROM items i JOIN forms f ON f.id=i.form_id JOIN companies c ON c.id=f.company_id\n       JOIN raw_items s ON s.source_type='item' AND s.source_key=CAST(i.id AS TEXT)\n        WHERE i.form_id=NEW.id ON CONFLICT(source_id,entity_key) DO UPDATE SET company_id=excluded.company_id,entity_type=excluded.entity_type,entity_name=excluded.entity_name,ai_impact=excluded.ai_impact,ai_confidence=excluded.ai_confidence,ai_reason=excluded.ai_reason,ai_evidence=excluded.ai_evidence,ai_monetary_effect=excluded.ai_monetary_effect,ai_monetary_effect_reason=excluded.ai_monetary_effect_reason,price_change_1w_pct=excluded.price_change_1w_pct,price_change_reason=excluded.price_change_reason,legacy_relation_id=excluded.legacy_relation_id,legacy_item_id=excluded.legacy_item_id,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at; UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT NEW.company_id UNION SELECT OLD.company_id) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT NEW.company_id UNION SELECT OLD.company_id) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_item_delete",
+      "tbl_name": "items",
+      "sql": "CREATE TRIGGER atlas_unified_item_delete AFTER DELETE ON items BEGIN DELETE FROM relationships WHERE legacy_item_id=OLD.id;UPDATE raw_items SET status='skipped',metadata_json=json_set(metadata_json,'$.atlas_deleted',1) WHERE source_type='item' AND source_key=CAST(OLD.id AS TEXT);UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT f.company_id FROM forms f WHERE f.id=OLD.form_id) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT f.company_id FROM forms f WHERE f.id=OLD.form_id) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_item_insert",
+      "tbl_name": "items",
+      "sql": "CREATE TRIGGER atlas_unified_item_insert AFTER INSERT ON items BEGIN INSERT INTO raw_items (source_type,source_key,parent_key,title,content,summary,event_at,received_at,source_url,source_name,status,metadata_json,created_at,updated_at) SELECT 'item',CAST(i.id AS TEXT),f.index_url,i.item_name,i.item_text,NULL,f.filed_date,i.created_at,COALESCE(f.primary_url,f.index_url),f.form_type,CASE WHEN i.status='analysed' THEN 'analysed' WHEN i.status IN ('skipped','rejected','filtered') THEN 'skipped' WHEN i.status='connected' THEN 'connected' ELSE 'created' END,json_object('id',i.\"id\",'form_id',i.\"form_id\",'file_guid',i.\"file_guid\",'file_name',i.\"file_name\",'item_type',i.\"item_type\",'item_occurrence',i.\"item_occurrence\",'item_name',i.\"item_name\",'ai_impact',i.\"ai_impact\",'ai_confidence',i.\"ai_confidence\",'ai_reason',i.\"ai_reason\",'ai_evidence',i.\"ai_evidence\",'ai_monetary_effect',i.\"ai_monetary_effect\",'ai_monetary_effect_reason',i.\"ai_monetary_effect_reason\",'price_change_1w_pct',i.\"price_change_1w_pct\",'price_change_reason',i.\"price_change_reason\",'errors',i.\"errors\",'created_at',i.\"created_at\",'updated_at',i.\"updated_at\"),i.created_at,i.updated_at FROM items i JOIN forms f ON f.id=i.form_id WHERE i.id=NEW.id ON CONFLICT(source_type,source_key) DO UPDATE SET parent_key=excluded.parent_key,title=excluded.title,content=excluded.content,summary=excluded.summary,event_at=excluded.event_at,received_at=excluded.received_at,source_url=excluded.source_url,source_name=excluded.source_name,status=excluded.status,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at; INSERT INTO relationships (company_id,source_id,entity_type,entity_key,entity_name,\n      ai_impact,ai_confidence,ai_reason,ai_evidence,ai_monetary_effect,\n      ai_monetary_effect_reason,price_change_1w_pct,price_change_reason,\n      legacy_relation_id,legacy_item_id,metadata_json,created_at,updated_at) SELECT f.company_id,s.id,'company','company:'||f.company_id,c.name,\n       CASE WHEN i.status='analysed' THEN i.ai_impact END,\n       CASE WHEN i.status='analysed' THEN i.ai_confidence END,\n       CASE WHEN i.status='analysed' THEN i.ai_reason END,\n       CASE WHEN i.status='analysed' THEN i.ai_evidence END,\n       CASE WHEN i.status='analysed' THEN i.ai_monetary_effect END,\n       CASE WHEN i.status='analysed' THEN i.ai_monetary_effect_reason END,\n       CASE WHEN i.status='analysed' THEN i.price_change_1w_pct END,\n       CASE WHEN i.status='analysed' THEN i.price_change_reason END,\n       NULL,i.id,json_object('id',i.\"id\",'form_id',i.\"form_id\",'file_guid',i.\"file_guid\",'file_name',i.\"file_name\",'item_type',i.\"item_type\",'item_occurrence',i.\"item_occurrence\",'item_name',i.\"item_name\",'ai_impact',i.\"ai_impact\",'ai_confidence',i.\"ai_confidence\",'ai_reason',i.\"ai_reason\",'ai_evidence',i.\"ai_evidence\",'ai_monetary_effect',i.\"ai_monetary_effect\",'ai_monetary_effect_reason',i.\"ai_monetary_effect_reason\",'price_change_1w_pct',i.\"price_change_1w_pct\",'price_change_reason',i.\"price_change_reason\",'errors',i.\"errors\",'created_at',i.\"created_at\",'updated_at',i.\"updated_at\"),i.created_at,i.updated_at\n       FROM items i JOIN forms f ON f.id=i.form_id JOIN companies c ON c.id=f.company_id\n       JOIN raw_items s ON s.source_type='item' AND s.source_key=CAST(i.id AS TEXT)\n        WHERE i.id=NEW.id ON CONFLICT(source_id,entity_key) DO UPDATE SET company_id=excluded.company_id,entity_type=excluded.entity_type,entity_name=excluded.entity_name,ai_impact=excluded.ai_impact,ai_confidence=excluded.ai_confidence,ai_reason=excluded.ai_reason,ai_evidence=excluded.ai_evidence,ai_monetary_effect=excluded.ai_monetary_effect,ai_monetary_effect_reason=excluded.ai_monetary_effect_reason,price_change_1w_pct=excluded.price_change_1w_pct,price_change_reason=excluded.price_change_reason,legacy_relation_id=excluded.legacy_relation_id,legacy_item_id=excluded.legacy_item_id,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at; UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT f.company_id FROM forms f WHERE f.id=NEW.form_id) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT f.company_id FROM forms f WHERE f.id=NEW.form_id) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_item_update",
+      "tbl_name": "items",
+      "sql": "CREATE TRIGGER atlas_unified_item_update AFTER UPDATE ON items BEGIN INSERT INTO raw_items (source_type,source_key,parent_key,title,content,summary,event_at,received_at,source_url,source_name,status,metadata_json,created_at,updated_at) SELECT 'item',CAST(i.id AS TEXT),f.index_url,i.item_name,i.item_text,NULL,f.filed_date,i.created_at,COALESCE(f.primary_url,f.index_url),f.form_type,CASE WHEN i.status='analysed' THEN 'analysed' WHEN i.status IN ('skipped','rejected','filtered') THEN 'skipped' WHEN i.status='connected' THEN 'connected' ELSE 'created' END,json_object('id',i.\"id\",'form_id',i.\"form_id\",'file_guid',i.\"file_guid\",'file_name',i.\"file_name\",'item_type',i.\"item_type\",'item_occurrence',i.\"item_occurrence\",'item_name',i.\"item_name\",'ai_impact',i.\"ai_impact\",'ai_confidence',i.\"ai_confidence\",'ai_reason',i.\"ai_reason\",'ai_evidence',i.\"ai_evidence\",'ai_monetary_effect',i.\"ai_monetary_effect\",'ai_monetary_effect_reason',i.\"ai_monetary_effect_reason\",'price_change_1w_pct',i.\"price_change_1w_pct\",'price_change_reason',i.\"price_change_reason\",'errors',i.\"errors\",'created_at',i.\"created_at\",'updated_at',i.\"updated_at\"),i.created_at,i.updated_at FROM items i JOIN forms f ON f.id=i.form_id WHERE i.id=NEW.id ON CONFLICT(source_type,source_key) DO UPDATE SET parent_key=excluded.parent_key,title=excluded.title,content=excluded.content,summary=excluded.summary,event_at=excluded.event_at,received_at=excluded.received_at,source_url=excluded.source_url,source_name=excluded.source_name,status=excluded.status,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at; INSERT INTO relationships (company_id,source_id,entity_type,entity_key,entity_name,\n      ai_impact,ai_confidence,ai_reason,ai_evidence,ai_monetary_effect,\n      ai_monetary_effect_reason,price_change_1w_pct,price_change_reason,\n      legacy_relation_id,legacy_item_id,metadata_json,created_at,updated_at) SELECT f.company_id,s.id,'company','company:'||f.company_id,c.name,\n       CASE WHEN i.status='analysed' THEN i.ai_impact END,\n       CASE WHEN i.status='analysed' THEN i.ai_confidence END,\n       CASE WHEN i.status='analysed' THEN i.ai_reason END,\n       CASE WHEN i.status='analysed' THEN i.ai_evidence END,\n       CASE WHEN i.status='analysed' THEN i.ai_monetary_effect END,\n       CASE WHEN i.status='analysed' THEN i.ai_monetary_effect_reason END,\n       CASE WHEN i.status='analysed' THEN i.price_change_1w_pct END,\n       CASE WHEN i.status='analysed' THEN i.price_change_reason END,\n       NULL,i.id,json_object('id',i.\"id\",'form_id',i.\"form_id\",'file_guid',i.\"file_guid\",'file_name',i.\"file_name\",'item_type',i.\"item_type\",'item_occurrence',i.\"item_occurrence\",'item_name',i.\"item_name\",'ai_impact',i.\"ai_impact\",'ai_confidence',i.\"ai_confidence\",'ai_reason',i.\"ai_reason\",'ai_evidence',i.\"ai_evidence\",'ai_monetary_effect',i.\"ai_monetary_effect\",'ai_monetary_effect_reason',i.\"ai_monetary_effect_reason\",'price_change_1w_pct',i.\"price_change_1w_pct\",'price_change_reason',i.\"price_change_reason\",'errors',i.\"errors\",'created_at',i.\"created_at\",'updated_at',i.\"updated_at\"),i.created_at,i.updated_at\n       FROM items i JOIN forms f ON f.id=i.form_id JOIN companies c ON c.id=f.company_id\n       JOIN raw_items s ON s.source_type='item' AND s.source_key=CAST(i.id AS TEXT)\n        WHERE i.id=NEW.id ON CONFLICT(source_id,entity_key) DO UPDATE SET company_id=excluded.company_id,entity_type=excluded.entity_type,entity_name=excluded.entity_name,ai_impact=excluded.ai_impact,ai_confidence=excluded.ai_confidence,ai_reason=excluded.ai_reason,ai_evidence=excluded.ai_evidence,ai_monetary_effect=excluded.ai_monetary_effect,ai_monetary_effect_reason=excluded.ai_monetary_effect_reason,price_change_1w_pct=excluded.price_change_1w_pct,price_change_reason=excluded.price_change_reason,legacy_relation_id=excluded.legacy_relation_id,legacy_item_id=excluded.legacy_item_id,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at; UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT f.company_id FROM forms f WHERE f.id=NEW.form_id) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT f.company_id FROM forms f WHERE f.id=NEW.form_id) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_news_delete",
+      "tbl_name": "news",
+      "sql": "CREATE TRIGGER atlas_unified_news_delete AFTER DELETE ON news BEGIN UPDATE raw_items SET status='skipped',metadata_json=json_set(metadata_json,'$.atlas_deleted',1) WHERE source_type='news' AND source_key=CAST(OLD.news_id AS TEXT);UPDATE relationships SET ai_impact=NULL,ai_monetary_effect=NULL,accumulated_impact=NULL,accumulated_monetary=NULL WHERE source_id=(SELECT id FROM raw_items WHERE source_type='news' AND source_key=CAST(OLD.news_id AS TEXT)); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_news_insert",
+      "tbl_name": "news",
+      "sql": "CREATE TRIGGER atlas_unified_news_insert AFTER INSERT ON news BEGIN INSERT INTO raw_items (source_type,source_key,parent_key,title,content,summary,event_at,received_at,source_url,source_name,status,metadata_json,created_at,updated_at) SELECT 'news',n.news_id,NULL,n.title,n.article_text,n.summary,n.published_utc,n.created_at,n.url,n.source,CASE WHEN n.status='analysed' THEN 'analysed' WHEN n.status IN ('skipped','rejected','filtered') THEN 'skipped' WHEN n.status='connected' THEN 'connected' ELSE 'created' END,json_object('news_id',n.\"news_id\",'title',n.\"title\",'url',n.\"url\",'url_key',n.\"url_key\",'title_key',n.\"title_key\",'story_key',n.\"story_key\",'summary',n.\"summary\",'source',n.\"source\",'region',n.\"region\",'category',n.\"category\",'published_utc',n.\"published_utc\",'companies',n.\"companies\",'filtration_reason',n.\"filtration_reason\",'errors',n.\"errors\",'created_at',n.\"created_at\",'updated_at',n.\"updated_at\"),n.created_at,n.updated_at FROM news n WHERE n.news_id=NEW.news_id ON CONFLICT(source_type,source_key) DO UPDATE SET parent_key=excluded.parent_key,title=excluded.title,content=excluded.content,summary=excluded.summary,event_at=excluded.event_at,received_at=excluded.received_at,source_url=excluded.source_url,source_name=excluded.source_name,status=excluded.status,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at;UPDATE raw_items SET status=CASE\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=NEW.news_id\n        AND l.entity_type='company' AND l.status NOT IN ('analysed','skipped','rejected')) THEN 'connected'\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=NEW.news_id\n        AND l.entity_type='company' AND l.status='analysed') THEN 'analysed'\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=NEW.news_id\n        AND l.entity_type='company') THEN 'skipped'\n      WHEN status='skipped' THEN 'skipped' ELSE 'created' END\n      WHERE source_type='news' AND source_key=NEW.news_id; UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT DISTINCT company_id FROM relationships WHERE source_id=(SELECT id FROM raw_items WHERE source_type='news' AND source_key=NEW.news_id)) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT DISTINCT company_id FROM relationships WHERE source_id=(SELECT id FROM raw_items WHERE source_type='news' AND source_key=NEW.news_id)) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_news_relation_delete",
+      "tbl_name": "news_company_relations",
+      "sql": "CREATE TRIGGER atlas_unified_news_relation_delete AFTER DELETE ON news_company_relations BEGIN DELETE FROM relationships WHERE legacy_relation_id=OLD.relation_id;UPDATE raw_items SET status=CASE\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=OLD.news_id\n        AND l.entity_type='company' AND l.status NOT IN ('analysed','skipped','rejected')) THEN 'connected'\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=OLD.news_id\n        AND l.entity_type='company' AND l.status='analysed') THEN 'analysed'\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=OLD.news_id\n        AND l.entity_type='company') THEN 'skipped'\n      WHEN status='skipped' THEN 'skipped' ELSE 'created' END\n      WHERE source_type='news' AND source_key=OLD.news_id;UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT OLD.company_id) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT OLD.company_id) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_news_relation_insert",
+      "tbl_name": "news_company_relations",
+      "sql": "CREATE TRIGGER atlas_unified_news_relation_insert AFTER INSERT ON news_company_relations BEGIN INSERT INTO relationships (company_id,source_id,entity_type,entity_key,entity_name,correlation_reason,\n      match_evidence,match_hits,ai_impact,ai_confidence,ai_reason,ai_evidence,ai_monetary_effect,\n      ai_monetary_effect_reason,price_change_1w_pct,price_change_reason,\n      legacy_relation_id,legacy_item_id,metadata_json,created_at,updated_at) SELECT r.company_id,s.id,r.entity_type,r.entity_key,r.entity_name,\n       r.correlation_reason,r.match_evidence,r.match_hits,\n       CASE WHEN r.status='analysed' THEN r.ai_impact END,\n       CASE WHEN r.status='analysed' THEN r.ai_confidence END,\n       CASE WHEN r.status='analysed' THEN r.ai_reason END,\n       CASE WHEN r.status='analysed' THEN r.ai_evidence END,\n       CASE WHEN r.status='analysed' THEN r.ai_monetary_effect END,\n       CASE WHEN r.status='analysed' THEN r.ai_monetary_effect_reason END,\n       CASE WHEN r.status='analysed' THEN r.price_change_1w_pct END,\n       CASE WHEN r.status='analysed' THEN r.price_change_reason END,\n       r.relation_id,NULL,json_object('relation_id',r.\"relation_id\",'news_id',r.\"news_id\",'company_id',r.\"company_id\",'entity_key',r.\"entity_key\",'entity_type',r.\"entity_type\",'entity_name',r.\"entity_name\",'ai_impact',r.\"ai_impact\",'ai_confidence',r.\"ai_confidence\",'ai_reason',r.\"ai_reason\",'ai_evidence',r.\"ai_evidence\",'ai_monetary_effect',r.\"ai_monetary_effect\",'ai_monetary_effect_reason',r.\"ai_monetary_effect_reason\",'price_change_1w_pct',r.\"price_change_1w_pct\",'price_change_reason',r.\"price_change_reason\",'errors',r.\"errors\",'created_at',r.\"created_at\",'updated_at',r.\"updated_at\",'match_hits',r.\"match_hits\",'match_evidence',r.\"match_evidence\",'correlation_reason',r.\"correlation_reason\"),r.created_at,r.updated_at\n       FROM news_company_relations r JOIN raw_items s\n         ON s.source_type='news' AND s.source_key=r.news_id WHERE r.relation_id=NEW.relation_id\n       ON CONFLICT(source_id,entity_key) DO UPDATE SET company_id=excluded.company_id,entity_type=excluded.entity_type,entity_name=excluded.entity_name,correlation_reason=excluded.correlation_reason,match_evidence=excluded.match_evidence,match_hits=excluded.match_hits,ai_impact=excluded.ai_impact,ai_confidence=excluded.ai_confidence,ai_reason=excluded.ai_reason,ai_evidence=excluded.ai_evidence,ai_monetary_effect=excluded.ai_monetary_effect,ai_monetary_effect_reason=excluded.ai_monetary_effect_reason,price_change_1w_pct=excluded.price_change_1w_pct,price_change_reason=excluded.price_change_reason,legacy_relation_id=excluded.legacy_relation_id,legacy_item_id=excluded.legacy_item_id,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at; UPDATE raw_items SET status=CASE\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=NEW.news_id\n        AND l.entity_type='company' AND l.status NOT IN ('analysed','skipped','rejected')) THEN 'connected'\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=NEW.news_id\n        AND l.entity_type='company' AND l.status='analysed') THEN 'analysed'\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=NEW.news_id\n        AND l.entity_type='company') THEN 'skipped'\n      WHEN status='skipped' THEN 'skipped' ELSE 'created' END\n      WHERE source_type='news' AND source_key=NEW.news_id; UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT NEW.company_id) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT NEW.company_id) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_news_relation_update",
+      "tbl_name": "news_company_relations",
+      "sql": "CREATE TRIGGER atlas_unified_news_relation_update AFTER UPDATE ON news_company_relations BEGIN INSERT INTO relationships (company_id,source_id,entity_type,entity_key,entity_name,correlation_reason,\n      match_evidence,match_hits,ai_impact,ai_confidence,ai_reason,ai_evidence,ai_monetary_effect,\n      ai_monetary_effect_reason,price_change_1w_pct,price_change_reason,\n      legacy_relation_id,legacy_item_id,metadata_json,created_at,updated_at) SELECT r.company_id,s.id,r.entity_type,r.entity_key,r.entity_name,\n       r.correlation_reason,r.match_evidence,r.match_hits,\n       CASE WHEN r.status='analysed' THEN r.ai_impact END,\n       CASE WHEN r.status='analysed' THEN r.ai_confidence END,\n       CASE WHEN r.status='analysed' THEN r.ai_reason END,\n       CASE WHEN r.status='analysed' THEN r.ai_evidence END,\n       CASE WHEN r.status='analysed' THEN r.ai_monetary_effect END,\n       CASE WHEN r.status='analysed' THEN r.ai_monetary_effect_reason END,\n       CASE WHEN r.status='analysed' THEN r.price_change_1w_pct END,\n       CASE WHEN r.status='analysed' THEN r.price_change_reason END,\n       r.relation_id,NULL,json_object('relation_id',r.\"relation_id\",'news_id',r.\"news_id\",'company_id',r.\"company_id\",'entity_key',r.\"entity_key\",'entity_type',r.\"entity_type\",'entity_name',r.\"entity_name\",'ai_impact',r.\"ai_impact\",'ai_confidence',r.\"ai_confidence\",'ai_reason',r.\"ai_reason\",'ai_evidence',r.\"ai_evidence\",'ai_monetary_effect',r.\"ai_monetary_effect\",'ai_monetary_effect_reason',r.\"ai_monetary_effect_reason\",'price_change_1w_pct',r.\"price_change_1w_pct\",'price_change_reason',r.\"price_change_reason\",'errors',r.\"errors\",'created_at',r.\"created_at\",'updated_at',r.\"updated_at\",'match_hits',r.\"match_hits\",'match_evidence',r.\"match_evidence\",'correlation_reason',r.\"correlation_reason\"),r.created_at,r.updated_at\n       FROM news_company_relations r JOIN raw_items s\n         ON s.source_type='news' AND s.source_key=r.news_id WHERE r.relation_id=NEW.relation_id\n       ON CONFLICT(source_id,entity_key) DO UPDATE SET company_id=excluded.company_id,entity_type=excluded.entity_type,entity_name=excluded.entity_name,correlation_reason=excluded.correlation_reason,match_evidence=excluded.match_evidence,match_hits=excluded.match_hits,ai_impact=excluded.ai_impact,ai_confidence=excluded.ai_confidence,ai_reason=excluded.ai_reason,ai_evidence=excluded.ai_evidence,ai_monetary_effect=excluded.ai_monetary_effect,ai_monetary_effect_reason=excluded.ai_monetary_effect_reason,price_change_1w_pct=excluded.price_change_1w_pct,price_change_reason=excluded.price_change_reason,legacy_relation_id=excluded.legacy_relation_id,legacy_item_id=excluded.legacy_item_id,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at; UPDATE raw_items SET status=CASE\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=NEW.news_id\n        AND l.entity_type='company' AND l.status NOT IN ('analysed','skipped','rejected')) THEN 'connected'\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=NEW.news_id\n        AND l.entity_type='company' AND l.status='analysed') THEN 'analysed'\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=NEW.news_id\n        AND l.entity_type='company') THEN 'skipped'\n      WHEN status='skipped' THEN 'skipped' ELSE 'created' END\n      WHERE source_type='news' AND source_key=NEW.news_id; UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT OLD.company_id UNION SELECT NEW.company_id) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT OLD.company_id UNION SELECT NEW.company_id) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_news_update",
+      "tbl_name": "news",
+      "sql": "CREATE TRIGGER atlas_unified_news_update AFTER UPDATE ON news BEGIN INSERT INTO raw_items (source_type,source_key,parent_key,title,content,summary,event_at,received_at,source_url,source_name,status,metadata_json,created_at,updated_at) SELECT 'news',n.news_id,NULL,n.title,n.article_text,n.summary,n.published_utc,n.created_at,n.url,n.source,CASE WHEN n.status='analysed' THEN 'analysed' WHEN n.status IN ('skipped','rejected','filtered') THEN 'skipped' WHEN n.status='connected' THEN 'connected' ELSE 'created' END,json_object('news_id',n.\"news_id\",'title',n.\"title\",'url',n.\"url\",'url_key',n.\"url_key\",'title_key',n.\"title_key\",'story_key',n.\"story_key\",'summary',n.\"summary\",'source',n.\"source\",'region',n.\"region\",'category',n.\"category\",'published_utc',n.\"published_utc\",'companies',n.\"companies\",'filtration_reason',n.\"filtration_reason\",'errors',n.\"errors\",'created_at',n.\"created_at\",'updated_at',n.\"updated_at\"),n.created_at,n.updated_at FROM news n WHERE n.news_id=NEW.news_id ON CONFLICT(source_type,source_key) DO UPDATE SET parent_key=excluded.parent_key,title=excluded.title,content=excluded.content,summary=excluded.summary,event_at=excluded.event_at,received_at=excluded.received_at,source_url=excluded.source_url,source_name=excluded.source_name,status=excluded.status,metadata_json=excluded.metadata_json,created_at=excluded.created_at,updated_at=excluded.updated_at;UPDATE raw_items SET status=CASE\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=NEW.news_id\n        AND l.entity_type='company' AND l.status NOT IN ('analysed','skipped','rejected')) THEN 'connected'\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=NEW.news_id\n        AND l.entity_type='company' AND l.status='analysed') THEN 'analysed'\n      WHEN EXISTS(SELECT 1 FROM news_company_relations l WHERE l.news_id=NEW.news_id\n        AND l.entity_type='company') THEN 'skipped'\n      WHEN status='skipped' THEN 'skipped' ELSE 'created' END\n      WHERE source_type='news' AND source_key=NEW.news_id; UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT DISTINCT company_id FROM relationships WHERE source_id=(SELECT id FROM raw_items WHERE source_type='news' AND source_key=NEW.news_id)) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT DISTINCT company_id FROM relationships WHERE source_id=(SELECT id FROM raw_items WHERE source_type='news' AND source_key=NEW.news_id)) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_raw_status_guard_insert",
+      "tbl_name": "raw_items",
+      "sql": "CREATE TRIGGER atlas_unified_raw_status_guard_insert\n      BEFORE INSERT ON raw_items\n      WHEN NEW.status NOT IN ('created','skipped','connected','analysed')\n      BEGIN SELECT RAISE(ABORT,'Invalid raw_items.status'); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_raw_status_guard_update",
+      "tbl_name": "raw_items",
+      "sql": "CREATE TRIGGER atlas_unified_raw_status_guard_update\n      BEFORE UPDATE OF status ON raw_items\n      WHEN NEW.status NOT IN ('created','skipped','connected','analysed')\n      BEGIN SELECT RAISE(ABORT,'Invalid raw_items.status'); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_raw_status_update",
+      "tbl_name": "raw_items",
+      "sql": "CREATE TRIGGER atlas_unified_raw_status_update AFTER UPDATE OF status ON raw_items BEGIN UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT company_id FROM relationships WHERE source_id=NEW.id) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT company_id FROM relationships WHERE source_id=NEW.id) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_relationship_delete",
+      "tbl_name": "relationships",
+      "sql": "CREATE TRIGGER atlas_unified_relationship_delete AFTER DELETE ON relationships BEGIN UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT OLD.company_id) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT OLD.company_id) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_relationship_insert",
+      "tbl_name": "relationships",
+      "sql": "CREATE TRIGGER atlas_unified_relationship_insert AFTER INSERT ON relationships BEGIN UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT NEW.company_id) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT NEW.company_id) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    },
+    {
+      "type": "trigger",
+      "name": "atlas_unified_relationship_update",
+      "tbl_name": "relationships",
+      "sql": "CREATE TRIGGER atlas_unified_relationship_update AFTER UPDATE OF ai_impact,ai_monetary_effect,company_id,source_id ON relationships BEGIN UPDATE relationships\n       SET accumulated_impact=NULL,accumulated_monetary=NULL\n       WHERE company_id IN (SELECT OLD.company_id UNION SELECT NEW.company_id) AND (ai_impact IS NULL\n          OR entity_type!='company' OR EXISTS (SELECT 1 FROM raw_items s\n            WHERE s.id=relationships.source_id AND (s.status='skipped' OR s.source_type NOT IN ('news','item'))))\n         AND (accumulated_impact IS NOT NULL OR accumulated_monetary IS NOT NULL);\n       UPDATE relationships SET\n        accumulated_impact=h.cumulative,accumulated_monetary=h.cumulative_money\n       FROM (SELECT rid,cid,\n     SUM(impact) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative,\n     SUM(COALESCE(monetary,0)) OVER(PARTITION BY cid ORDER BY CASE WHEN julianday(stamp) IS NULL THEN 0 ELSE 1 END,julianday(stamp),kind,rid ROWS UNBOUNDED PRECEDING) cumulative_money\n     FROM (SELECT r.id rid,r.company_id cid,s.source_type kind,s.event_at stamp,\n                    r.ai_impact impact,r.ai_monetary_effect monetary\n             FROM relationships r JOIN raw_items s ON s.id=r.source_id\n             WHERE r.company_id IN (SELECT OLD.company_id UNION SELECT NEW.company_id) AND r.entity_type='company'\n               AND r.ai_impact IS NOT NULL AND s.status!='skipped'\n               AND s.source_type IN ('news','item'))) AS h WHERE relationships.id=h.rid AND\n         (relationships.accumulated_impact IS NOT h.cumulative OR\n          relationships.accumulated_monetary IS NOT h.cumulative_money); END"
+    }
+  ]
+}

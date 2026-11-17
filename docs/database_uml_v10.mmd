@@ -1,0 +1,54 @@
+erDiagram
+    companies ||--o{ forms : "id = company_id"
+    forms ||--o{ items : "id = form_id"
+    companies o|--o{ news_company_relations : "id = company_id"
+    news ||--o{ news_company_relations : "news_id"
+    news o|--o{ news : "main_news_id"
+    companies {
+        INTEGER id PK
+        TEXT cik UK
+        TEXT name
+        TEXT ticker
+        TEXT exchange
+    }
+    forms {
+        INTEGER id PK
+        INTEGER company_id FK
+        TEXT form_type
+        TEXT filed_date "UTC ISO8601"
+        TEXT index_url UK
+        TEXT primary_url
+        TEXT file_guid
+        TEXT file_name
+        TEXT status
+    }
+    items {
+        INTEGER id PK
+        INTEGER form_id FK
+        TEXT item_type
+        INTEGER item_occurrence "Unique per form and type"
+        TEXT item_name
+        TEXT item_text
+        TEXT status
+        INTEGER ai_impact
+        REAL ai_confidence
+    }
+    news {
+        TEXT news_id PK
+        TEXT url_key UK
+        TEXT story_key
+        TEXT published_utc
+        TEXT company_reasons_json
+    TEXT main_news_id FK
+        TEXT batch_status
+    }
+    news_company_relations {
+        TEXT relation_id PK
+        TEXT news_id FK
+        INTEGER company_id FK "NULL for non-companies"
+        TEXT entity_key
+        TEXT entity_type
+        TEXT entity_name
+        INTEGER ai_impact
+        REAL ai_confidence
+    }

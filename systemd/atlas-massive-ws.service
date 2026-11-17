@@ -1,0 +1,20 @@
+[Unit]
+Description=Atlas Massive Stocks WebSocket 15-minute bar collector
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=atlas
+Group=atlas
+WorkingDirectory=/opt/atlas/main_back_end
+ExecStart=/bin/bash /opt/atlas/main_back_end/start_massive_ws.sh
+Restart=always
+RestartSec=15
+TimeoutStopSec=35
+UMask=0077
+NoNewPrivileges=true
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target

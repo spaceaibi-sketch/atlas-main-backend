@@ -1,0 +1,56 @@
+# Python interpreter, build output, virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.venv/
+venv/
+env/
+build/
+dist/
+*.egg-info/
+
+# Real API credentials and environment-specific configuration
+.env
+.env.*
+!.env.example
+assets/key.txt
+.python_exe
+*.pem
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+credentials.json
+secrets.json
+
+# Local databases, SQLite sidecar files and service output
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+*.sqlite-wal
+*.sqlite-shm
+*.db-wal
+*.db-shm
+data/
+reports/
+archives/
+cache/
+logs/
+*.log
+*.log.*
+*.pid
+*.lock
+
+# IDE / operating-system metadata
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

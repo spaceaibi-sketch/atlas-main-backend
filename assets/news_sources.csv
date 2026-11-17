@@ -1,0 +1,44 @@
+﻿name,category,region,type,url
+Google News US Business,Business,US,rss,https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-US&gl=US&ceid=US:en
+Google News US Technology,Technology,US,rss,https://news.google.com/rss/headlines/section/topic/TECHNOLOGY?hl=en-US&gl=US&ceid=US:en
+Google News UK Business,Business,UK,rss,https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-GB&gl=GB&ceid=GB:en
+Google News India Business,Business,India,rss,https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-IN&gl=IN&ceid=IN:en
+Google News Singapore Business,Business,Singapore,rss,https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-SG&gl=SG&ceid=SG:en
+Google News Australia Business,Business,Australia,rss,https://news.google.com/rss/headlines/section/topic/BUSINESS?hl=en-AU&gl=AU&ceid=AU:en
+Google News Search — Global markets,Finance,Global,rss,https://news.google.com/rss/search?q=stock%20market%20earnings%20securities%20bonds%20when%3A6h&hl=en-US&gl=US&ceid=US:en
+Google News Search — Corporate earnings,Finance,Global,rss,https://news.google.com/rss/search?q=company%20earnings%20financial%20results%20when%3A6h&hl=en-US&gl=US&ceid=US:en
+Google News Search — Mergers and acquisitions,Finance,Global,rss,https://news.google.com/rss/search?q=merger%20acquisition%20buyout%20when%3A6h&hl=en-US&gl=US&ceid=US:en
+Google News Search — Saudi Tadawul,Finance,Global,rss,https://news.google.com/rss/search?q=Saudi%20Tadawul%20company%20earnings%20when%3A6h&hl=en-US&gl=US&ceid=US:en
+Google News Search — Inflation and growth,Economy,Global,rss,https://news.google.com/rss/search?q=inflation%20recession%20GDP%20economic%20growth%20when%3A6h&hl=en-US&gl=US&ceid=US:en
+Google News Search — Global trade,Economy,Global,rss,https://news.google.com/rss/search?q=global%20trade%20tariffs%20supply%20chain%20when%3A6h&hl=en-US&gl=US&ceid=US:en
+Google News Search — Energy and OPEC,Economy,Global,rss,https://news.google.com/rss/search?q=OPEC%20energy%20oil%20price%20production%20when%3A6h&hl=en-US&gl=US&ceid=US:en
+Google News Search — Technology,Technology,Global,rss,https://news.google.com/rss/search?q=semiconductor%20artificial%20intelligence%20computing%20when%3A6h&hl=en-US&gl=US&ceid=US:en
+Google News Search — Cybersecurity,Technology,Global,rss,https://news.google.com/rss/search?q=cybersecurity%20cyberattack%20data%20breach%20when%3A6h&hl=en-US&gl=US&ceid=US:en
+Google News Search — War and conflicts,War & Security,Global,rss,https://news.google.com/rss/search?q=war%20invasion%20ceasefire%20sanctions%20conflict%20when%3A6h&hl=en-US&gl=US&ceid=US:en
+BBC World,World,Global,rss,https://feeds.bbci.co.uk/news/world/rss.xml
+BBC Business,Business,Global,rss,https://feeds.bbci.co.uk/news/business/rss.xml
+BBC Politics,Politics,Global,rss,https://feeds.bbci.co.uk/news/politics/rss.xml
+BBC Technology,Technology,Global,rss,https://feeds.bbci.co.uk/news/technology/rss.xml
+BBC Science & Environment,Science,Global,rss,https://feeds.bbci.co.uk/news/science_and_environment/rss.xml
+BBC Health,Health,Global,rss,https://feeds.bbci.co.uk/news/health/rss.xml
+Guardian World,World,Global,rss,https://www.theguardian.com/world/rss
+Guardian Politics,Politics,Global,rss,https://www.theguardian.com/politics/rss
+Guardian Business,Business,Global,rss,https://www.theguardian.com/business/rss
+Guardian Technology,Technology,Global,rss,https://www.theguardian.com/uk/technology/rss
+NPR Politics,Politics,Global,rss,https://feeds.npr.org/1014/rss.xml
+NASA Breaking News,Research,Global,rss,https://www.nasa.gov/news-release/feed/
+WSJ Markets,Finance,US,rss,https://feeds.content.dowjones.io/public/rss/RSSMarketsMain
+WSJ Business,Business,US,rss,https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness
+CNBC Top News,General,US,rss,https://www.cnbc.com/id/100003114/device/rss/rss.html
+MarketWatch Top Stories,Finance,US,rss,https://feeds.content.dowjones.io/public/rss/mw_topstories
+Federal Reserve Monetary Policy,Economy,US,rss,https://www.federalreserve.gov/feeds/press_monetary.xml
+BLS Consumer Price Index,Economy,US,rss,https://www.bls.gov/feed/cpi.rss
+BLS Employment Situation,Economy,US,rss,https://www.bls.gov/feed/empsit.rss
+ECB Press Releases,Economy,EU,rss,https://www.ecb.europa.eu/rss/press.html
+WSJ World,World,Global,rss,https://feeds.content.dowjones.io/public/rss/RSSWorldNews
+Al Jazeera English,World,Global,rss,https://www.aljazeera.com/xml/rss/all.xml
+Federal Register Documents,General,US,rss,https://www.federalregister.gov/api/v1/documents.rss
+Techmeme,Technology,Global,rss,https://www.techmeme.com/feed.xml
+TechCrunch,Technology,Global,rss,https://techcrunch.com/feed/
+Ars Technica,Technology,Global,rss,https://feeds.arstechnica.com/arstechnica/index
+The Verge,Technology,Global,rss,https://www.theverge.com/rss/index.xml

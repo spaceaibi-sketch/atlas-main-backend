@@ -1,0 +1,17 @@
+digraph UML {
+ graph [rankdir=TB, bgcolor="white", nodesep=.8, ranksep=1.05, pad=.2, fontname="DejaVu Sans"];
+ node [shape=record, fontname="DejaVu Sans", fontsize=12, style="filled", fillcolor="#F0F5FA", color="#486888", margin=".14,.1"];
+ edge [fontname="DejaVu Sans", fontsize=10, color="#4E657C", arrowsize=.8];
+ companies [label="{companies|id INTEGER PK (AUTO)\lcik TEXT UNIQUE\lname, ticker, exchange\lcreated_at, updated_at\l}"];
+ forms [label="{forms|id INTEGER PK (AUTO)\lcompany_id INTEGER FK\lform_type, form_name\lfiled_date UTC\lindex_url UNIQUE, primary_url\lfile_guid, file_name\lstatus, error, audit timestamps\l}"];
+ items [label="{items|id INTEGER PK (AUTO)\lform_id INTEGER FK\litem_type, item_occurrence\litem_name, item_text\lstatus, AI fields, audit timestamps\l}"];
+ news [label="{news|news_id TEXT PK\lurl_key UNIQUE, story_key\ltitle, source, summary, article_text\lpublished_utc, batch_status\lcompany_reasons_json (JSON array)\lmain_news_id FK (optional)\l}"];
+ links [label="{news_company_relations|relation_id TEXT PK\lnews_id TEXT FK\lcompany_id INTEGER FK (optional)\lentity_key, entity_type, entity_name\lmatch_hits, match_evidence\lcorrelation_reason TEXT\lAI fields, status\l}"];
+ companies -> forms [label="1 : many"];
+ forms -> items [label="1 : many"];
+ companies -> links [label="0..1 : many"];
+ news -> links [label="1 : many"];
+ news -> news [label="duplicate to main",style=dashed,constraint=false];
+ {rank=same; companies;news}
+ {rank=same;forms;links}
+}
