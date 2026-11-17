@@ -1,8 +1,15 @@
 **Uploading this backend to GitHub?** See [GITHUB_UPLOAD.md](GITHUB_UPLOAD.md) for safe publishing and Git setup.
 
+
+
 **Command naming / 20-item AI batching / cron installation:** see [PROJECT_COMMANDS.md](PROJECT_COMMANDS.md).
 
 # Atlas — SEC EDGAR + AI-first News Research Collector
+
+
+WebSite: https://aibi.space/atlas-news-monitor
+Google Play: https://play.google.com/store/apps/details?id=atlas.aibi.space
+
 
 Standalone Python 3.13 / SQLite / Plotly Dash project. **The canonical
 mobile API contract contains five tables:** `companies`, `raw_items`,
